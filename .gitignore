@@ -1,0 +1,14 @@
+# Quarto
+.quarto/
+*_files/
+*_cache/
+analysis_cache/
+analysis.html
+
+# R
+.Rhistory
+.RData
+.Ruserdata
+
+# OS
+.DS_Store

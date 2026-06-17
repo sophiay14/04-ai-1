@@ -1,0 +1,58 @@
+---
+title: "Exploring Storms and Flights"
+author: "Gemini CLI"
+execute:
+  echo: false
+---
+
+```{r setup}
+suppressPackageStartupMessages(library(tidyverse))
+```
+
+# Storms Analysis
+
+This plot shows the number of unique named storms recorded each year in the `storms` dataset.
+
+```{r storms-plot}
+#| cache: true
+storms |>
+  group_by(year) |>
+  summarise(n_storms = n_distinct(name)) |>
+  ggplot(aes(x = year, y = n_storms)) +
+  geom_line() +
+  geom_point() +
+  labs(
+    title = "Number of Named Storms per Year",
+    x = "Year",
+    y = "Storm Count"
+  ) +
+  theme_minimal()
+```
+
+# Flights Data
+
+```{r flights-data}
+library(nycflights13)
+flights_jfk <- flights |>
+  filter(origin == "JFK") |>
+  select(dep_delay, arr_delay, carrier)
+
+flights_jfk
+```
+
+# Delay Analysis
+
+This scatter plot shows the relationship between departure and arrival delays for JFK flights, colored by carrier.
+
+```{r delay-plot}
+flights_jfk |>
+  ggplot(aes(x = dep_delay, y = arr_delay, color = carrier)) +
+  geom_point(alpha = 0.5) +
+  labs(
+    title = "Departure vs. Arrival Delays at JFK",
+    x = "Departure Delay (minutes)",
+    y = "Arrival Delay (minutes)",
+    color = "Carrier"
+  ) +
+  theme_minimal()
+```
